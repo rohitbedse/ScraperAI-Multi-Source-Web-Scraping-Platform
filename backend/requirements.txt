@@ -1,0 +1,10 @@
+fastapi>=0.115
+uvicorn>=0.30
+pydantic>=2.9
+sqlalchemy>=2.0
+requests
+beautifulsoup4
+playwright
+# tests
+pytest
+httpx
