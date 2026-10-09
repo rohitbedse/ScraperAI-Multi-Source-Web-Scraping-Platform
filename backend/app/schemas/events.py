@@ -91,3 +91,5 @@ class Event(BaseModel):
     line: Optional[int] = None
     retryable: Optional[bool] = None
     job_continues: Optional[bool] = None
+    # optional scraper-specific live numbers (e.g. matched / unmatched counts); the UI renders them generically
+    data: Optional[dict] = None

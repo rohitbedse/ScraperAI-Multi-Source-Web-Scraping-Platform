@@ -1,0 +1,112 @@
+# Parameters to scrape for each NIRF college.
+# key: unique machine name | label: display name | type: str|int|float|bool|list
+# scope: college | course   (course = nested under the college, once per course)
+# degree_levels: which degree levels a course-scope parameter applies to
+# section_hint (optional): where on the page the value usually lives
+
+college_parameters:
+  - key: standard_college_name
+    label: "Standard College Names"
+    type: str
+    scope: college
+  - key: standard_university_name
+    label: "Standard University Names"
+    type: str
+    scope: college
+  - key: college_category
+    label: "College Category"
+    type: str            # allowed values: Govt | Private
+    scope: college
+    allowed_values: [Govt, Private]
+  - key: description
+    label: "Description"
+    type: str
+    scope: college
+    section_hint: overview
+  - key: source
+    label: "Source"
+    type: str
+    scope: college
+  - key: url
+    label: "URL"
+    type: str
+    scope: college
+  - key: location
+    label: "Location"
+    type: str
+    scope: college
+
+course_parameters:
+  degree_levels: [UG, PG, PhD]     # each level has its own list of courses
+  fields:
+    - key: course_name
+      label: "Course Name"
+      type: str
+      section_hint: courses
+    - key: domain
+      label: "Domain"
+      type: str
+      section_hint: courses
+    - key: eligibility
+      label: "Eligibility"
+      type: str
+      section_hint: admission
+    - key: course_details
+      label: "Course_Details"
+      type: str
+      section_hint: courses
+    - key: course_duration
+      label: "Course Duration"
+      type: str
+      section_hint: courses
+    - key: fees
+      label: "Fees"
+      type: str
+      section_hint: fees
+    - key: entrance_exams_accepted
+      label: "Entrance_Exams_Accepted"
+      type: list
+      section_hint: admission
+    - key: research_areas
+      label: "Research_Areas"
+      type: list
+      section_hint: courses
+    - key: course_intake
+      label: "Course_Intake"
+      type: str
+      section_hint: courses
+    - key: admission_process
+      label: "Admission_Process"
+      type: str
+      section_hint: admission
+
+study_destination:
+  - key: study_destination_india
+    label: "India"
+    type: bool
+  - key: study_destination_germany
+    label: "Germany"
+    type: bool
+  - key: study_destination_uk
+    label: "UK"
+    type: bool
+  - key: study_destination_usa
+    label: "USA"
+    type: bool
+  - key: study_destination_australia
+    label: "Australia"
+    type: bool
+
+ranking_category:
+  - key: nirf_ranking
+    label: "NIRF_Ranking"
+    type: int
+    section_hint: rankings
+  - key: qs_world_ranking
+    label: "QS_World_Ranking"
+    type: str
+    section_hint: rankings
+  - key: times_higher_education_ranking
+    label: "Times_Higher_Education_Ranking"
+    type: str
+    section_hint: rankings

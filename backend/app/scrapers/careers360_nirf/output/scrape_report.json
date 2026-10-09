@@ -1,0 +1,215 @@
+{
+  "seed_count": 100,
+  "records_in_output": 6,
+  "match": {
+    "matched": 6,
+    "ambiguous": 0,
+    "unmatched": 0
+  },
+  "scrape": {
+    "scraped": 0,
+    "partial": 6,
+    "failed": 0
+  },
+  "courses_per_level": {
+    "UG": 72,
+    "PG": 385,
+    "PhD": 158
+  },
+  "courses_total": 615,
+  "duplicates_skipped": 18,
+  "courses_skipped_other_level": 117,
+  "course_details_skipped": 435,
+  "parameter_coverage": {
+    "college_level": {
+      "standard_college_name": {
+        "filled": 6,
+        "total": 6,
+        "percent": 100.0
+      },
+      "standard_university_name": {
+        "filled": 6,
+        "total": 6,
+        "percent": 100.0
+      },
+      "college_category": {
+        "filled": 6,
+        "total": 6,
+        "percent": 100.0
+      },
+      "description": {
+        "filled": 6,
+        "total": 6,
+        "percent": 100.0
+      },
+      "source": {
+        "filled": 6,
+        "total": 6,
+        "percent": 100.0
+      },
+      "url": {
+        "filled": 6,
+        "total": 6,
+        "percent": 100.0
+      },
+      "location": {
+        "filled": 6,
+        "total": 6,
+        "percent": 100.0
+      },
+      "nirf_ranking": {
+        "filled": 6,
+        "total": 6,
+        "percent": 100.0
+      },
+      "qs_world_ranking": {
+        "filled": 0,
+        "total": 6,
+        "percent": 0.0
+      },
+      "times_higher_education_ranking": {
+        "filled": 0,
+        "total": 6,
+        "percent": 0.0
+      },
+      "study_destination_india": {
+        "filled": 6,
+        "total": 6,
+        "percent": 100.0
+      },
+      "study_destination_germany": {
+        "filled": 0,
+        "total": 6,
+        "percent": 0.0
+      },
+      "study_destination_uk": {
+        "filled": 0,
+        "total": 6,
+        "percent": 0.0
+      },
+      "study_destination_usa": {
+        "filled": 0,
+        "total": 6,
+        "percent": 0.0
+      },
+      "study_destination_australia": {
+        "filled": 0,
+        "total": 6,
+        "percent": 0.0
+      }
+    },
+    "course_level": {
+      "course_name": {
+        "filled": 615,
+        "total": 615,
+        "percent": 100.0
+      },
+      "domain": {
+        "filled": 615,
+        "total": 615,
+        "percent": 100.0
+      },
+      "eligibility": {
+        "filled": 178,
+        "total": 615,
+        "percent": 28.9
+      },
+      "course_details": {
+        "filled": 178,
+        "total": 615,
+        "percent": 28.9
+      },
+      "course_duration": {
+        "filled": 615,
+        "total": 615,
+        "percent": 100.0
+      },
+      "fees": {
+        "filled": 426,
+        "total": 615,
+        "percent": 69.3
+      },
+      "entrance_exams_accepted": {
+        "filled": 389,
+        "total": 615,
+        "percent": 63.3
+      },
+      "research_areas": {
+        "filled": 0,
+        "total": 615,
+        "percent": 0.0
+      },
+      "course_intake": {
+        "filled": 209,
+        "total": 615,
+        "percent": 34.0
+      },
+      "admission_process": {
+        "filled": 492,
+        "total": 615,
+        "percent": 80.0
+      }
+    }
+  },
+  "unbound_parameters": [],
+  "per_college_completeness": [
+    {
+      "id": "IR-O-U-0456",
+      "name": "Indian Institute of Technology Madras",
+      "status": "partial",
+      "completeness": 59.5
+    },
+    {
+      "id": "IR-O-U-0220",
+      "name": "Indian Institute of Science",
+      "status": "partial",
+      "completeness": 58.9
+    },
+    {
+      "id": "IR-O-U-0306",
+      "name": "Indian Institute of Technology Bombay",
+      "status": "partial",
+      "completeness": 59.6
+    },
+    {
+      "id": "IR-O-I-1074",
+      "name": "Indian Institute of Technology Delhi",
+      "status": "partial",
+      "completeness": 58.6
+    },
+    {
+      "id": "IR-O-I-1075",
+      "name": "Indian Institute of Technology Kanpur",
+      "status": "partial",
+      "completeness": 60.6
+    },
+    {
+      "id": "IR-O-U-0573",
+      "name": "Indian Institute of Technology Kharagpur",
+      "status": "partial",
+      "completeness": 65.8
+    }
+  ],
+  "failed_ids": [],
+  "ambiguous_ids": [],
+  "unmatched_ids": [],
+  "run": {
+    "started_at": "2026-10-09T09:02:55+00:00",
+    "finished_at": "2026-10-09T09:12:22+00:00",
+    "duration_seconds": 566.6,
+    "selected": 100,
+    "processed_this_run": 6,
+    "skipped_resume": 0,
+    "requests_made": 283,
+    "blocked_responses": 0,
+    "aborted": null,
+    "resume": false
+  },
+  "limitations": [
+    "research_areas: Careers360 does not publish them; always null.",
+    "QS / Times Higher Education rankings: only present if the profile page lists them; otherwise null.",
+    "study_destination: set True only when the page's campus address names the country; never False.",
+    "Eligibility, course details and admission text come from one page per course; the number of course pages fetched per college is capped (see course_details_skipped).",
+    "Courses whose degree is diploma, certificate or a combined/dual programme are not UG/PG/PhD and are skipped (courses_skipped_other_level)."
+  ]
+}

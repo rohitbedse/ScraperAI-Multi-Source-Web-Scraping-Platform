@@ -1,0 +1,41 @@
+{
+  "version": 1,
+  "colleges": {
+    "IR-O-U-0456": {
+      "status": "partial",
+      "attempts": 4,
+      "error": "77 courses not opened (cap of 30 course pages per college): eligibility/details left null for them",
+      "updated_at": "2026-10-09T09:04:24+00:00"
+    },
+    "IR-O-U-0220": {
+      "status": "partial",
+      "attempts": 4,
+      "error": "degree listing MBA page 1: INITIAL_STATE is not valid JSON: Expecting value: line 1 column 253848 (char 253847); 71 courses not opened (cap of 30 course pages per college): eligibility/details left null for them",
+      "updated_at": "2026-10-09T09:05:49+00:00"
+    },
+    "IR-O-U-0306": {
+      "status": "partial",
+      "attempts": 1,
+      "error": "81 courses not opened (cap of 30 course pages per college): eligibility/details left null for them",
+      "updated_at": "2026-10-09T09:07:17+00:00"
+    },
+    "IR-O-I-1074": {
+      "status": "partial",
+      "attempts": 1,
+      "error": "course page https://www.careers360.com/uae/universities/indian-institute-of-technology-delhi-abu-dhabi-campus/btech-energy-engineering-coursepg: HTTP 404 for https://www.careers360.com/uae/universities/indian-institute-of-technology-delhi-abu-dhabi-campus/btech-energy-engineering-coursepg; course page https://www.careers360.com/uae/universities/indian-institute-of-technology-delhi-abu-dhabi-campus/mtech-machine-intelligence-and-data-science-coursepg: HTTP 404 for https://www.careers360.com/uae/universities/indian-institute-of-technology-delhi-abu-dhabi-campus/mtech-machine-intelligence-and-data-science-coursepg; 79 courses not opened (cap of 30 course pages per college): eligibility/details left null for them",
+      "updated_at": "2026-10-09T09:08:41+00:00"
+    },
+    "IR-O-I-1075": {
+      "status": "partial",
+      "attempts": 1,
+      "error": "degree listing BS page 1: INITIAL_STATE is not valid JSON: Expecting value: line 1 column 405017 (char 405016); 62 courses not opened (cap of 30 course pages per college): eligibility/details left null for them",
+      "updated_at": "2026-10-09T09:10:05+00:00"
+    },
+    "IR-O-U-0573": {
+      "status": "partial",
+      "attempts": 1,
+      "error": "degree listing Ph.D page 2: INITIAL_STATE is not valid JSON: Expecting value: line 1 column 383950 (char 383949); degree listing B.E /B.Tech page 1: INITIAL_STATE is not valid JSON: Expecting value: line 1 column 488194 (char 488193); 65 courses not opened (cap of 30 course pages per college): eligibility/details left null for them",
+      "updated_at": "2026-10-09T09:11:30+00:00"
+    }
+  }
+}

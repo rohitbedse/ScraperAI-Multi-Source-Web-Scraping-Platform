@@ -7,6 +7,7 @@ export interface LiveJob {
   job: Job | null;
   lastStage: string; // last normal pipeline stage reached (FAILED / PARTIAL are side exits)
   log: string[];
+  data: JobEvent["data"]; // latest scraper-specific live numbers (counts, current item...)
   error: string | null;
 }
 
@@ -15,13 +16,14 @@ export function useJob(id: string): LiveJob {
   const [job, setJob] = useState<Job | null>(null);
   const [lastStage, setLastStage] = useState("INIT");
   const [log, setLog] = useState<string[]>([]);
+  const [data, setData] = useState<JobEvent["data"]>(null);
   const [error, setError] = useState<string | null>(null);
   const seen = useRef(0);
 
   useEffect(() => {
     let es: EventSource | null = null;
     let dead = false;
-    setJob(null); setLog([]); setLastStage("INIT"); setError(null); seen.current = 0;
+    setJob(null); setData(null); setLog([]); setLastStage("INIT"); setError(null); seen.current = 0;
 
     const refresh = () => api.job(id).then((j) => !dead && setJob(j)).catch((e) => !dead && setError(String(e.message)));
 
@@ -29,6 +31,7 @@ export function useJob(id: string): LiveJob {
       let ev: JobEvent;
       try { ev = JSON.parse(e.data); } catch { return; }
       if (STAGES.includes(ev.stage)) setLastStage(ev.stage);
+      if (ev.data) setData(ev.data);
       if (ev.message && ev.event_type !== "status") {
         setLog((l) => [...l.slice(-199), ev.message]);
       }
@@ -58,5 +61,5 @@ export function useJob(id: string): LiveJob {
   // error counts / summary come from the server once the job finishes
   useEffect(() => { if (job && isTerminal(job.status) && !job.stats && job.status !== "cancelled") api.job(id).then(setJob).catch(() => {}); }, [job?.status]);
 
-  return { job, lastStage, log, error };
+  return { job, lastStage, log, data, error };
 }

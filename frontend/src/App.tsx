@@ -1,5 +1,5 @@
 import { useCallback, useEffect, useState } from "react";
-import { api, Job, ParamSchema, Source, isTerminal } from "./api";
+import { api, Job, JobEvent, ParamSchema, Source, isTerminal } from "./api";
 import { STAGES, useJob } from "./useJob";
 
 const useHash = () => {
@@ -36,6 +36,7 @@ function ParamsForm({ schema, value, onChange }: {
       {Object.entries(schema).map(([key, p]) => {
         const type = p.type ?? p.anyOf?.find((t) => t.type !== "null")?.type;
         const label = p.title ?? key;
+        const isList = type === "array"; // entered comma separated, sent as a list
         return (
           <label key={key} title={p.description} className="param">
             <span>{label}</span>
@@ -46,11 +47,12 @@ function ParamsForm({ schema, value, onChange }: {
                 type={type === "integer" || type === "number" ? "number" : "text"}
                 min={p.minimum} max={p.maximum}
                 placeholder={p.default == null ? "optional" : String(p.default)}
-                value={(value[key] as string | number | undefined) ?? ""}
+                value={isList ? ((value[key] as string[] | undefined) ?? []).join(", ") : ((value[key] as string | number | undefined) ?? "")}
                 onChange={(e) => {
                   const v = e.target.value;
                   const next = { ...value };
                   if (v === "") delete next[key];
+                  else if (isList) next[key] = v.split(",").map((x) => x.trim()).filter(Boolean);
                   else next[key] = type === "integer" || type === "number" ? Number(v) : v;
                   onChange(next);
                 }}
@@ -85,6 +87,7 @@ function SourceCard({ source, onRun }: { source: Source; onRun: (job: Job) => vo
         <span className={`pill ${source.status}`}>{source.status === "available" ? "Ready" : "Unavailable"}</span>
       </div>
       <p className="muted desc">{source.description}</p>
+      {source.status === "unavailable" && source.reason && <p className="error-text reason">Reason: {source.reason}</p>}
       {open && <ParamsForm schema={props} value={params} onChange={setParams} />}
       {err && <p className="error-text">{err}</p>}
       <div className="row">
@@ -203,8 +206,29 @@ function ErrorDetails({ job }: { job: Job }) {
   );
 }
 
+// Generic scraper-specific numbers: whatever the scraper puts in event.data (live) or stats (final).
+const COUNT_LABELS: [string, string][] = [
+  ["processed", "processed"], ["matched", "matched"], ["unmatched", "unmatched"], ["ambiguous", "ambiguous"],
+  ["failed", "failed"], ["pending", "pending"], ["courses_extracted", "courses extracted"],
+];
+function LiveCounts({ data, stats, live }: { data: JobEvent["data"]; stats: Job["stats"]; live: boolean }) {
+  const src = (live ? data : stats ?? data) as Record<string, number | string | null | undefined> | null;
+  if (!src || !COUNT_LABELS.some(([k]) => typeof src[k] === "number")) return null;
+  const total = typeof data?.total === "number" ? data.total : null;
+  return (
+    <>
+      <div className="summary counts">
+        {COUNT_LABELS.filter(([k]) => typeof src[k] === "number").map(([k, label]) => (
+          <div key={k}><b>{(src[k] as number).toLocaleString()}{k === "processed" && total ? ` / ${total}` : ""}</b><span>{label}</span></div>
+        ))}
+      </div>
+      {live && data?.current_college && <p className="muted">Now: {String(data.current_college)}{data.step ? ` (${String(data.step).replace(/_/g, " ")})` : ""}</p>}
+    </>
+  );
+}
+
 function JobView({ id }: { id: string }) {
-  const { job, lastStage, log, error } = useJob(id);
+  const { job, lastStage, log, data, error } = useJob(id);
   const [busy, setBusy] = useState(false);
   const [source, setSource] = useState<Source | null>(null);
   useEffect(() => { api.sources().then((all) => setSource(all.find((s) => s.id === job?.source) ?? null)).catch(() => {}); }, [job?.source]);
@@ -232,6 +256,7 @@ function JobView({ id }: { id: string }) {
         <span>{job.items_done}{job.items_total ? ` / ${job.items_total}` : ""} items</span>
       </div>
       <StageList stage={stage} status={job.status} stages={stages} />
+      <LiveCounts data={data} stats={job.stats} live={live} />
       {live && <p className="message">{job.message || "Waiting..."}{job.status === "queued" ? " (waiting for a free slot)" : ""}</p>}
       {job.status === "cancelling" && <p className="warn-text">Stopping the scraper and cleaning up...</p>}
 

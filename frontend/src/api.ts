@@ -7,6 +7,7 @@ export interface ParamSchema {
   title?: string;
   description?: string;
   default?: unknown;
+  items?: { type?: string };
   minimum?: number;
   maximum?: number;
 }
@@ -15,6 +16,7 @@ export interface Source {
   name: string;
   description: string;
   status: "available" | "unavailable";
+  reason?: string; // why a scraper is unavailable (its import error)
   stages?: string[];
   params_schema: { properties?: Record<string, ParamSchema> };
 }
@@ -48,7 +50,7 @@ export interface Job {
   items_total: number | null;
   items_done: number;
   error_count: number;
-  stats: { items?: number; errors?: number; duplicates?: number; invalid?: number } | null;
+  stats: ({ items?: number; errors?: number; duplicates?: number; invalid?: number } & Record<string, number | undefined>) | null;
   has_output: boolean;
   download_url: string | null;
   errors: JobError[];
@@ -62,6 +64,7 @@ export interface JobEvent {
   event_type: string;
   status?: Job["status"];
   error_code?: string;
+  data?: Record<string, number | string | null> | null; // scraper-specific live numbers
   timestamp: string;
 }
 

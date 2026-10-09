@@ -75,6 +75,7 @@ class BaseScraper:
         self.saved = 0
         self.stats: dict = {"duplicates": 0, "invalid": 0}
         self.meta: dict = {}                   # small extras copied into the final JSON
+        self.live_data: dict = {}              # optional extra counts attached to every event (Event.data)
         self.job_dir = config.ensure_job_dirs(job_id)
         self.partial_dir = self.job_dir / "partial"
         self.partial_path = self.partial_dir / "items.jsonl"
@@ -97,7 +98,8 @@ class BaseScraper:
         extras = {k: extra.pop(k) for k in ("traceback", "stats", "output_file") if k in extra}
         ev = Event(job_id=self.job_id, source=self.id, stage=extra.pop("stage", self.stage),
                    percent=round(self.percent, 1), items_done=self.items_done,
-                   items_total=self.items_total, message=message, event_type=event_type, **extra)
+                   items_total=self.items_total, message=message, event_type=event_type,
+                   data=extra.pop("data", None) or (dict(self.live_data) or None), **extra)
         line = ev.model_dump(mode="json") | extras
         self._out.write(json.dumps(line, ensure_ascii=False) + "\n")
         self._out.flush()
