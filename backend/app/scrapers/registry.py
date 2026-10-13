@@ -11,6 +11,7 @@ REGISTRY: dict[str, str] = {
     "swayam": "app.scrapers.swayam.scraper:SwayamScraper",
     "mindler": "app.scrapers.mindler.scraper:MindlerScraper",
     "careers360_nirf": "app.scrapers.careers360_nirf.platform_scraper:Careers360NirfPlatformScraper",
+    "nirf": "app.scrapers.nirf.scraper:NirfScraper",
 }
 if config.ENABLE_DEMO:
     REGISTRY["demo"] = "app.scrapers.demo.scraper:DemoScraper"

@@ -4,6 +4,7 @@ pydantic>=2.10,<2.11
 sqlalchemy>=2.0
 requests
 beautifulsoup4
+lxml
 playwright
 pyyaml
 # tests

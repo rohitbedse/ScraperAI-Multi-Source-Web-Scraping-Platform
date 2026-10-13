@@ -210,6 +210,7 @@ function ErrorDetails({ job }: { job: Job }) {
 const COUNT_LABELS: [string, string][] = [
   ["processed", "processed"], ["matched", "matched"], ["unmatched", "unmatched"], ["ambiguous", "ambiguous"],
   ["failed", "failed"], ["pending", "pending"], ["courses_extracted", "courses extracted"],
+  ["records", "records"], ["validation_issues", "validation issues"],
 ];
 function LiveCounts({ data, stats, live }: { data: JobEvent["data"]; stats: Job["stats"]; live: boolean }) {
   const src = (live ? data : stats ?? data) as Record<string, number | string | null | undefined> | null;
